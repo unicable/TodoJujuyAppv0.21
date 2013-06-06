@@ -1,0 +1,190 @@
+@charset "utf-8";
+/* CSS Document */
+
+#home {
+	background-color: #EEE;
+	width: 100%;
+}
+#noticias {
+	margin: 6px 0;
+}
+#contenido {
+	margin: 6px 0;
+	padding: 0;
+}
+.titulo {
+	text-transform: uppercase;
+	padding: 6px 0;
+	font-size: 15px;
+	color: #1F1F1F;
+	font-weight: bold;
+	border-bottom: 1px dotted #E0E0E0;
+	margin: 0 6px 6px 6px;
+	float: left;
+}
+.fecha {
+	font-size: 10px;
+	color: #666;
+	margin: 0 6px 6px 6px;
+	float: left;
+}
+.seccion {
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 0 6px 0 0;
+	float: left;
+}
+.imagen {
+	margin-bottom: 6px;
+	float: left;
+}
+.resumen {
+	font-size: 13px;
+	float: left;
+	color: #1f1f1f;
+	margin: 0 6px 6px 6px;
+	padding-bottom: 6px;
+	border-bottom: 1px dotted #131313;
+}
+.video {
+	font-size:11px;
+	width:100%;
+	color:#666;
+	float:left;
+	padding:6px 6px 0 6px;
+	background:#EEE;
+}
+a{
+	text-decoration:none;
+	color:#900;
+}
+#secciones {
+	border-top: 2px solid #CCC;
+	padding: 0;
+	float: left;
+}
+.item {
+	padding: 6px;
+	text-transform: uppercase;
+	font-size: 12px;
+	border-top: 1px dotted #9D9D9D
+}
+#ampliarsec .tituloseccion {
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 5px;
+	width: 100%;
+	float: left;
+}
+.titulocontacto {
+	font-size:15px;
+	font-weight:bold;
+	color:#1F1F1F;
+	border-bottom:1px dotted #999;
+}
+.cuerpocontacto {
+	font-size:12px;
+	padding:6px;
+	line-height:28px;
+}
+
+#infocines {
+	font-size:12px;
+	padding:10px;
+}
+.cines_head {
+	font-size:16px;
+	font-weight:bold;
+	padding:8px 0;
+	width:100%;
+	border-bottom:1px dotted #1F1F1F;
+	margin-bottom:8px;
+	color:#C00;
+}
+#infocines .cines_detalle {
+	
+}
+#infocines .cines_donde {
+	color:#C00;
+	font-weight:bold;
+	font-size:11px;
+	padding:6px;
+}
+#infocines .cines_titulo {
+	padding:6px 0;
+	font-size:16px;
+	font-weight:bold;
+}
+#infocines .cines_nombres {
+	margin:6px 0;
+	padding:6px;
+	font-size:11px;
+	border:1px dashed #6C7886;
+	background:#EDEFF1;
+	color:#6C7886
+}
+#infocines .cines_descripcion {
+	padding:6px 0;
+	font-size:11px;	
+	color:#666;
+}
+#infocines .trailer {
+	width:100%;
+	margin:6px 0;
+}
+#infocines .trailer a{
+	background:#C00;
+	color:#FFF;
+	padding:4px;
+	text-transform:uppercase;
+	font-size:11px;
+	font-weight:normal;
+}
+#infoclima {
+	text-align:center;
+	width:100%;	
+	font-size:11px;
+	border:1px dotted #DFDFDF;
+	background:#FFF;
+	margin:10px 0;
+	float:left;
+}
+#infoclima .clima_detalle {	
+	margin:0 auto;
+	width:60%;
+	padding:10px;
+}
+#infoclima .clima_nombre {
+	font-size:18px;
+	font-weight:bold;
+}
+#infoclima .clima_temperatura {
+	font-size:34px;
+	color:#900;
+	font-weight:bold;
+	width:100%;
+	float:left;
+}
+#infoclima .clima_imagen {
+	width:100%;
+	float:left;
+}
+#infoclima .datos{
+	padding:6px 0 1px 0;
+	color:#1F1F1F;
+	text-align:center;	
+	width:50%;
+	float:left;
+}
+#infoclima .humedad{
+	padding:2px 0 10px 0;
+	color:#1F1F1F;
+	text-align:center;
+	font-size:13px;
+	font-weight:bold;
+	width:50%;
+	float:left;
+}

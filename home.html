@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>TodoJujuy.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type='text/javascript' src="js/jquery-1.8.3.min.js"></script>
+<script type='text/javascript'>//<![CDATA[
+
+	
+	
+    $(document).on('click', '#ampliarnota', function(){     
+        // Guardamos el id de la nota
+		storeObject.id = '';
+		storeObject.id = $(this).attr("data-id");
+        //Cambiamos de pagina
+        $.mobile.changePage("#ampliar");
+    });
+	//Idem anterior pero al hacer clic sobre imagen
+	$(document).on('click', '#imagen', function(){     
+        // Guardamos el id de la nota
+		storeObject.id = '';
+		storeObject.id = $(this).attr("data-id");
+        //Cambiamos de pagina
+        $.mobile.changePage("#ampliar");
+    });
+	//Para ampliar las secciones
+	$(document).on('click', '#ampliarseccion', function(){     
+        // Guardamos el id de la seccion
+		storeObject.secc = '';
+		storeObject.secc = $(this).attr("data-id");
+		//Cambiamos de pagina
+        $.mobile.changePage("#ampliarsec");
+    });    
+
+	//Notas portada
+	$(document).ready(function(){
+		var ancho = $(window).width(); 
+		/* Sacamos el ancho de la ventana, no del documento $(document) */
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {
+			  $.each(data.respData,function(index,value) {
+				  $('#loultimo').append('<li id="ampliarnota" data-id="'+value.id+'" data-transition="flip"><div class="titulo" style="width:'+(ancho-10)+'px">'+value.titulo+'</div><div class="fecha" style="width:'+ancho+'px"><div class="seccion" style="color:'+value.seccion_color+'">'+value.seccion_nombre+'</div>'+ value.fecha_hora+'</div>');
+				  if (value.imagen != '' && value.imagen != null) {
+					  $('#loultimo').append('<div class="imagen" id="imagen" data-id="'+value.id+'"><img src="http://todojujuy.com/imagenes/'+ancho+'x300/strict/img/'+value.imagen+'" /></div>');
+				  }
+				  $('#loultimo').append('<div class="resumen" style="width:'+(ancho-10)+'px">'+value.resumen+'</div></li>');
+			  });		  
+		  },
+		});
+	
+		//Secciones
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=secciones&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {		  
+			  $.each(data.respData,function(index,value) {	
+				  //$('#secciones').css('width',ancho);		  
+				  $('#seccion').append('<li class="item" style="color:'+value.ns_color+'" id="ampliarseccion" data-id="'+value.id+'">'+value.valor+'</li>');	  
+			  });
+		  },
+		});
+	});
+
+	//Ampliar noticia
+	$(document).on('pagebeforeshow', '#ampliar', function(){		
+		var anchoA = $(window).width(); 
+		/* Sacamos el ancho de la ventana, no del documento $(document) */	
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=ampliar&id='+storeObject.id+'&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {
+			  $('#contenido').hide();
+			  $('#contenido').html('');
+			  $('#contenido').show();
+			  var contenido = '<div class="titulo" style="width:'+(anchoA-10)+'px">'+data.respData.titulo+'</div><div class="fecha" style="width:'+anchoA+'px"><div class="seccion" style="color:'+data.respData.seccion_color+'">'+data.respData.seccion_nombre+'</div>'+ data.respData.fecha_hora+'</div>';
+			  if (data.respData.id_video_youtube != '' && data.respData.id_video_youtube != null) {
+			  	contenido += ' - Incluye video. <a href="http://www.youtube.com/watch?v='+data.respData.id_video_youtube+'">VER</a></div>';			  	
+			  }
+			  if (data.respData.imagen != '') {
+				  contenido += '<div class="imagen"><img src="http://todojujuy.com/imagenes/'+(anchoA)+'x300/strict/img/'+data.respData.imagen+'" /></div>';
+			  }	
+			  contenido += '<div class="resumen" style="width:'+(anchoA-15)+'px">'+data.respData.cuerpo+'</div>';
+			  $('#contenido').html(contenido);
+		  },
+		});
+	});
+	
+	$(document).on('pagebeforeshow', '#ampliarsec', function(){		
+		var anchoS = $(window).width(); 
+		$('#notasseccion').html('');
+		/* Sacamos el ancho de la ventana, no del documento $(document) */		
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=ampliarseccion&id='+storeObject.secc+'&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {
+			  $('#notasseccion').hide();
+			  $('#notasseccion').html('');
+			  $('#notasseccion').show();
+			  $('#ampliarsec .tituloseccion').css('color',data.respSeccion.ns_color);
+			  $('#ampliarsec .tituloseccion').html(data.respSeccion.ns_nombre);    
+			  $.each(data.respData,function(index,value) {			  
+				  $('#notasseccion').append('<li id="ampliarnota" data-id="'+value.id+'"><div class="titulo" style="width:'+(anchoS-10)+'px">'+value.titulo+'</div><div class="fecha" style="width:'+anchoS+'px">'+ value.fecha_hora+'</div>');				
+				  
+				  if (value.id_video_youtube != '') {
+					  
+				  }
+				  else {
+					  if (value.image != '' || value.image != null) {
+						  $('#notasseccion').append('<div id="imagen" class="imagen" data-id="'+value.id+'"><img src="http://todojujuy.com/imagenes/'+anchoS+'x300/strict/img/'+value.imagen+'" /></div>');
+					  }	
+				  }
+				  $('#notasseccion').append('<div class="resumen" style="width:'+(anchoS-10)+'px">'+value.resumen+'</div></li>');
+			  });		  
+		  },
+		});	 
+	});
+	
+	//Cines
+	$(document).on('pagebeforeshow', '#cines', function(){	
+		var anchoC = $(window).width()-20; 
+		var altoC = Math.floor(anchoC * 0.733333333);
+		/* Sacamos el ancho de la ventana, no del documento $(document) */
+		var contenido_cines = '';
+		$('#infocines').html('');
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=cines&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {
+			  $.each(data.respData,function(index,value) {
+				  contenido_cines += '<li id="cines_detalle" data-id="'+value.id+'" data-transition="flip"><div class="cines_titulo" style="width:'+(anchoC-10)+'px">'+value.titulo+'</div><div class="cines_imagen"><img src="http://www.todojujuy.com/imagenes/'+anchoC+'x'+altoC+'/strict/cines/'+value.imagen+'" width="'+(anchoC-12)+'" heigth="'+altoC+'" /></div><div class="cines_descripcion" style="width:'+(anchoC-10)+'px">'+value.descripcion+'</div>';
+				  //if (value.youtube != '' && value.youtube != null) {
+//				  	contenido_cines += '<div class="trailer"><iframe width="'+(anchoC-20)+'" height="'+altoC+'" src="http://www.youtube.com/embed/'+value.youtube+'" frameborder="0" allowfullscreen></iframe></div>'; 
+//				  }
+				  contenido_cines += '<div class="cines_donde">La podes ver en:</div>';
+				  $.each(value.cines,function(i,val) {
+					  contenido_cines += '<div class="cines_nombres" style="width:'+(anchoC-30)+'px">'+val.nombre+': '+val.horario+'<br>'+val.direccion+'</div>';					  
+				  });
+				  contenido_cines += '</li>';				  				 
+			  });		  
+			  $('#infocines').append(contenido_cines);
+		  },
+		});
+	});
+	
+	//Clima
+	$(document).on('pagebeforeshow', '#clima', function(){	
+		var anchoF = $(window).width(); 
+		/* Sacamos el ancho de la ventana, no del documento $(document) */
+		var contenido_clima = '';
+		$('#infoclima').html('');
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=clima&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {
+			  contenido_clima += '<li class="clima_detalle"><div class="clima_ciudad">'+data.respData.nombre_ciudad+'</div><div class="clima_nombre">'+data.respData.nombre+'</div><div class="clima_imagen"><img src="http://www.todojujuy.com/img/clima/'+data.respData.codigo+'.png" width="95" height="95" /><div class="clima_temperatura">'+data.respData.temperatura+'º</div></div><div class="datos">Humedad</div><div class="datos">Presión</div><div class="humedad">'+data.respData.humedad+'%</div><div class="humedad">'+data.respData.presion+' hPa</div><div class="sol">Salida del sol:'+data.respData.sale_sol+'<br>Puesta del sol: '+data.respData.puesta_sol+'</div>';
+			  contenido_clima += '</li>';
+			  $('#infoclima').append(contenido_clima);
+		  },
+		});
+	});
+	
+	// Vaciamos el objeto
+	var storeObject = {
+		id : '',
+		secc : ''
+	}
+//]]>  
+</script>
+<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+<link rel="stylesheet" href="css/estilos.css" />
+<script src="js/jquery.mobile-1.2.0.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="index">
+  <div data-role="header" data-theme="a" >
+    <h3> <a href="home.html"><img src="img/logo.png" width="140" height="38"></a> </h3>
+  </div>
+  <div data-role="content" id="noticias">
+    <ul data-role="listview" id="loultimo" data-theme="a">
+    </ul>
+    <ul data-role="listview" id="seccion">
+    </ul>
+  </div>
+  <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
+    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+      <ul>
+        <li><a href="#index" id="chat" data-transition="fade" data-icon="home">Inicio</a></li>
+        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a data-ajax="false" href="#index" id="coffee" data-icon="arrow-u">Subir</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="ampliar">
+  <div data-theme="a" data-role="header">
+    <h3><a href="home.html"><img src="img/logo.png" alt="" width="140" height="38"></a></h3>
+    <a data-rel="back">Atrás</a> 
+  </div>
+  <div data-role="content" id="contenido"> </div>
+  <div data-theme="a" data-role="footer" data-position="fixed">
+    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+      <ul>
+        <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
+        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
+        <li><a href="#clima" id="skull" data-icon="info">Clima</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a data-ajax="false" href="#ampliar" id="coffee" data-icon="arrow-u">Subir</a>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="ampliarsec">
+  <div data-theme="a" data-role="header">
+    <h3><a href="home.html"><img src="img/logo.png" alt="" width="140" height="38"></a></h3>
+    <a data-rel="back">Atrás</a> 
+  </div>
+  <div data-role="content" id="contenidoseccion">
+    <div class="tituloseccion"></div>
+    <ul data-role="listview" id="notasseccion" data-theme="a">
+    </ul>
+  </div>
+  <div data-theme="a" data-role="footer" data-position="fixed">
+    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+      <ul>
+        <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
+        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a data-ajax="false" href="#ampliarsec" id="coffee" data-icon="arrow-u">Subir</a>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="contacto">
+  <div data-theme="a" data-role="header">
+    <h3><img src="img/logo.png" alt="" width="140" height="38"></h3>
+    <a data-rel="back">Atrás</a> 
+  </div>
+  <div data-role="content" id="contenidoseccion">
+    <div class="cuerpocontacto"> TodoJujuy.com<br>
+      Cte. de la Corte esq. Santa Fé<br>
+      San Salvador de Jujuy - Argentina<br>
+      +54 388 4223611 Int. 11<br>
+      +54 9 388 154365470<br>
+      <a href="mailto:diario@todojujuy.com">diario@todojujuy.com</a><br>
+
+    </div>
+  </div>
+  <div data-theme="a" data-role="footer" data-position="fixed">
+    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+      <ul>
+        <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
+        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a data-ajax="false" href="#contacto" id="coffee" data-icon="arrow-u">Subir</a>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="cines">
+  <div data-role="header" data-theme="a" >
+    <h3> <img src="img/logo.png" width="140" height="38"> </h3>
+    <a data-rel="back">Atrás</a> 
+  </div>
+  <div data-role="content">
+    <div class="cines_head">Cartelera de cines</div>
+    <ul data-role="listview" id="infocines" data-theme="a"></ul>   
+  </div>
+  <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
+    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+      <ul>
+        <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
+        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a data-ajax="false" href="#cines" id="coffee" data-icon="arrow-u">Subir</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="clima">
+  <div data-role="header" data-theme="a" >
+    <h3> <img src="img/logo.png" width="140" height="38"> </h3>
+    <a data-rel="back">Atrás</a> 
+  </div>
+  <div data-role="content">
+    <div class="cines_head">El clima en nuestra ciudad</div>
+    <ul data-role="listview" id="infoclima" data-theme="a"></ul>   
+  </div>
+  <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
+    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+      <ul>
+        <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
+        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a data-ajax="false" href="#clima" id="coffee" data-icon="arrow-u">Subir</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>
