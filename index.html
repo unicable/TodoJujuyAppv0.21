@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type='text/javascript' src="js/jquery-1.8.3.min.js"></script>
 <script type='text/javascript'>//<![CDATA[	
-
+	//$.mobile.addResolutionBreakpoints(360);
     $(document).on('click', '#ampliarnota', function(){     
         // Guardamos el id de la nota
 		storeObject.id = '';
@@ -272,7 +272,7 @@
     <div class="cines_head">Cartelera de cines</div>
     <ul data-role="listview" id="infocines" data-theme="a"></ul>   
   </div>
-  <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
+  <div data-role="footer" data-position="fixed">
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
         <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
