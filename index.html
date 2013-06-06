@@ -66,8 +66,7 @@
 	});
 
 	//Ampliar noticia
-	$(document).on('pagebeforeshow', '#ampliar', function(){		
-		$.mobile.showPageLoadingMsg("a", "Loading theme a...");
+	$(document).on('pagebeforeshow', '#ampliar', function(){				
 		var anchoA = $(window).width(); 
 		/* Sacamos el ancho de la ventana, no del documento $(document) */	
 		$.ajax({
@@ -89,6 +88,9 @@
 		  },
 		});
 	});
+	$(document).on('pageinit', '#ampliar', function(){
+		 $.mobile.loading( 'hide' );
+	 });
 	
 	$(document).on('pagebeforeshow', '#ampliarsec', function(){		
 		var anchoS = $(window).width(); 
