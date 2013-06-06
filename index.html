@@ -7,10 +7,6 @@
 <script type='text/javascript' src="js/jquery-1.8.3.min.js"></script>
 <script type='text/javascript'>//<![CDATA[	
 
-	$.mobile.loading( 'show' );	
-	$.mobile.showPageLoadingMsg("b", "Cargando contenido. ..", true);
-	$.mobile.fixedToolbars.show(true);
-
     $(document).on('click', '#ampliarnota', function(){     
         // Guardamos el id de la nota
 		storeObject.id = '';
@@ -26,6 +22,8 @@
 		storeObject.id = $(this).attr("data-id");
         //Cambiamos de pagina
         $.mobile.changePage("#ampliar");
+		$.mobile.showPageLoadingMsg("b", "Cargando contenido. ..", true);
+		$.mobile.fixedToolbars.show(true);
     });
 	//Para ampliar las secciones
 	$(document).on('click', '#ampliarseccion', function(){     
