@@ -2,7 +2,7 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
     id        = "app.todojujuy.com"
-    version   = "1.0.2">
+    version   = "1.0.2.1">
 
 <name>TodoJujuy</name>
 <author href="http://www.todojujuy.com" email="info@todojujuy.com">
