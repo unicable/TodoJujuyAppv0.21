@@ -6,6 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type='text/javascript' src="js/jquery-1.8.3.min.js"></script>
 <script type='text/javascript'>//<![CDATA[	
+
+	$.mobile.loading( 'show' );	
+	$.mobile.showPageLoadingMsg("b", "Cargando contenido. ..", true);
+	$.mobile.fixedToolbars.show(true);
+
     $(document).on('click', '#ampliarnota', function(){     
         // Guardamos el id de la nota
 		storeObject.id = '';
