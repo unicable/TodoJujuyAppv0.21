@@ -12,18 +12,15 @@
 		storeObject.id = '';
 		storeObject.id = $(this).attr("data-id");
         //Cambiamos de pagina
-        $.mobile.changePage("#ampliar");
-		$.mobile.showPageLoadingMsg("a", "Cargando nota...");
+        $.mobile.changePage("#ampliar");		
     });
 	//Idem anterior pero al hacer clic sobre imagen
 	$(document).on('click', '#imagen', function(){     
         // Guardamos el id de la nota
 		storeObject.id = '';
 		storeObject.id = $(this).attr("data-id");
-        //Cambiamos de pagina
-        $.mobile.changePage("#ampliar");
-		$.mobile.showPageLoadingMsg("b", "Cargando contenido. ..", true);
-		$.mobile.fixedToolbars.show(true);
+        //Cambiamos de pagina		
+        $.mobile.changePage("#ampliar");	
     });
 	//Para ampliar las secciones
 	$(document).on('click', '#ampliarseccion', function(){     
@@ -66,7 +63,8 @@
 	});
 
 	//Ampliar noticia
-	$(document).on('pagebeforeshow', '#ampliar', function(){				
+	$(document).on('pagebeforeshow', '#ampliar', function(){
+		$.mobile.showPageLoadingMsg("a", "Cargando nota...");				
 		var anchoA = $(window).width(); 
 		/* Sacamos el ancho de la ventana, no del documento $(document) */	
 		$.ajax({
@@ -85,12 +83,10 @@
 			  }	
 			  contenido += '<div class="resumen" style="width:'+(anchoA-15)+'px">'+data.respData.cuerpo+'</div>';
 			  $('#contenido').html(contenido);
+			  $.mobile.loading( 'hide' );
 		  },
 		});
 	});
-	$(document).on('pageinit', '#ampliar', function(){
-		 $.mobile.loading( 'hide' );
-	 });
 	
 	$(document).on('pagebeforeshow', '#ampliarsec', function(){		
 		var anchoS = $(window).width(); 
