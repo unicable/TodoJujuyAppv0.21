@@ -30,4 +30,5 @@ MF
 <preference name="android-installLocation" value="preferExternal" />
 <preference name="splash-screen-duration" value="6000" />
 <preference name="permissions" value="none" />
+<preference name="orientation" value="portrait" />
 </widget>

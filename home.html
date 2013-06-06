@@ -5,10 +5,7 @@
 <title>TodoJujuy.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type='text/javascript' src="js/jquery-1.8.3.min.js"></script>
-<script type='text/javascript'>//<![CDATA[
-
-	
-	
+<script type='text/javascript'>//<![CDATA[	
     $(document).on('click', '#ampliarnota', function(){     
         // Guardamos el id de la nota
 		storeObject.id = '';
@@ -66,6 +63,7 @@
 
 	//Ampliar noticia
 	$(document).on('pagebeforeshow', '#ampliar', function(){		
+		$.mobile.showPageLoadingMsg("a", "Loading theme a...");
 		var anchoA = $(window).width(); 
 		/* Sacamos el ancho de la ventana, no del documento $(document) */	
 		$.ajax({
