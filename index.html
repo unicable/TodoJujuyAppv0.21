@@ -29,6 +29,13 @@
 		storeObject.secc = $(this).attr("data-id");
 		//Cambiamos de pagina
         $.mobile.changePage("#ampliarsec");
+    });
+	$(document).on('click', '#menuampliarseccion', function(){     
+        // Guardamos el id de la seccion
+		storeObject.secc = '';
+		storeObject.secc = $(this).attr("data-id");
+		//Cambiamos de pagina
+        $.mobile.changePage("#ampliarsec");
     });    
 
 	//Notas portada
@@ -56,7 +63,8 @@
 		  success:function(data) {		  
 			  $.each(data.respData,function(index,value) {	
 				  //$('#secciones').css('width',ancho);		  
-				  $('#seccion').append('<li class="item" style="color:'+value.ns_color+'" id="ampliarseccion" data-id="'+value.id+'">'+value.valor+'</li>');	  
+				  $('#seccion').append('<li class="item" style="color:'+value.ns_color+'" id="ampliarseccion" data-id="'+value.id+'">'+value.valor+'</li>');
+				  $('#popupItem').append('<li><div class="cuadrado" style="background-color:'+value.ns_color+'"></div><div class="itemMenu"><a href="#" id="menuampliarseccion" data-id="'+value.id+'">'+value.valor+'</a></div></li>');
 			  });
 		  },
 		});
@@ -175,8 +183,17 @@
 </head>
 <body>
 <div data-role="page" id="index">
-  <div data-role="header" data-theme="a" data-position="fixed" >
-    <h3> <a href="home.html"><img src="img/logo.png" width="140" height="38"></a> </h3>
+  <div data-role="header" data-position="fixed" >
+    <div style="background-color:#1F1F1F; padding-top:6px; text-align:center; height:50px; width:100%;">
+        <a href="index.html"><img src="img/logo.png" width="140" height="38"></a>
+        <a href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-theme="b" class="menuPopup">Secciones</a>
+        <div data-role="popup" id="popupMenu" data-theme="a">
+            <ul class="listaItems" data-inset="true" style="min-width:140px;">
+            	<div id="popupItem"></div>
+            </ul>
+        </div>
+    </div>
+    
   </div>
   <div data-role="content" id="noticias">
     <ul data-role="listview" id="loultimo" data-theme="a">
@@ -187,7 +204,7 @@
   <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
-        <li><a href="#index" id="chat" data-transition="fade" data-icon="home">Inicio</a></li>
+        <li><a href="#index" id="chat" data-transition="fade" data-icon="index">Inicial</a></li>
         <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
         <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
         <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
@@ -198,7 +215,7 @@
 </div>
 <div data-role="page" id="ampliar">
   <div data-theme="a" data-role="header">
-    <h3><a href="home.html"><img src="img/logo.png" alt="" width="140" height="38"></a></h3>
+    <h3><a href="index.html"><img src="img/logo.png" alt="" width="140" height="38"></a></h3>
     <a data-rel="back">Atrás</a> 
   </div>
   <div data-role="content" id="contenido"> </div>
@@ -216,7 +233,7 @@
 </div>
 <div data-role="page" id="ampliarsec">
   <div data-theme="a" data-role="header">
-    <h3><a href="home.html"><img src="img/logo.png" alt="" width="140" height="38"></a></h3>
+    <h3><a href="index.html"><img src="img/logo.png" alt="" width="140" height="38"></a></h3>
     <a data-rel="back">Atrás</a> 
   </div>
   <div data-role="content" id="contenidoseccion">
