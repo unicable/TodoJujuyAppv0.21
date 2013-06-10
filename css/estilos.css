@@ -289,13 +289,13 @@ a{
 #pie {
 	width:100%;
 	position:fixed;
-	height:70px;
+	height:68px;
 	bottom:0px;
 	background:#363535;
 }
 #pie .item{
 	border:none;
-	width:15%;
+	width:17%;
 	margin:6px 0px;
 	height:56px;
 	float:left;
