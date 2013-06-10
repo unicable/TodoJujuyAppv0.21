@@ -288,39 +288,43 @@ a{
 }
 #pie {
 	width:100%;
-	height:40px;
+	position:fixed;
+	height:50px;
+	bottom:0px;
 	background:#F2F2F2;
 }
 #pie .item{
 	border:none;
-	margin:6px 4px 6px 4px;
-	height:20px;
+	width:14%;
+	margin:6px 0px;
+	height:38px;
 	float:left;
 	font-size:9px;
+	text-shadow:none;
 	color:#1F1F1F;
 	text-align:center;
 }
 #pie .item1{
 	background: url(../img/me_back.png) no-repeat center top;
-	padding-top:18px;
+	padding-top:34px;
 }
 #pie .item2{
 	background: url(../img/me_clima.png) no-repeat center top;
-	padding-top:18px;
+	padding-top:34px;
 }
 #pie .item3{
 	background: url(../img/me_farmacia.png) no-repeat center top;
-	padding-top:18px;
+	padding-top:34px;
 }
 #pie .item4{
 	background: url(../img/me_cine.png) no-repeat center top;
-	padding-top:18px;
+	padding-top:34px;
 }
 #pie .item5{
 	background: url(../img/me_subir.png) no-repeat center top;
-	padding-top:18px;
+	padding-top:34px;
 }
 #pie .item6{
 	background: url(../img/me_salir.png) no-repeat center top;
-	padding-top:18px;
+	padding-top:34px;
 }
