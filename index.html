@@ -68,6 +68,22 @@
 			  });
 		  },
 		});
+		
+		//U. Momento
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=ultimomomento&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {	
+		  	  if (data.respData != null) 
+			  {	 
+				$('#ultimo-momento').show();
+				$.each(data.respData,function(index,value) {				  
+				  $('#ultimo-nota').append('<a id="ampliarnota" data-id="'+value.id+'">'+value.titulo+'</a>');
+				});
+			  }
+			  else $('#ultimo-momento').hide();
+		  },
+		});		
 	});
 
 	//Ampliar noticia
@@ -170,6 +186,30 @@
 		});
 	});
 	
+	//Farmacias
+	$(document).on('pagebeforeshow', '#farmacias', function(){	
+		var anchoF = $(window).width()-20; 
+		var altoF = Math.floor(anchoF * 0.733333333);
+		/* Sacamos el ancho de la ventana, no del documento $(document) */
+		var contenido_farmacias = '';
+		$('#infofarmacias').html('');
+		$.ajax({
+		  url : 'http://www.wirenetserver.com.ar/app/index.php?op=farmacias&callback=?',
+		  dataType : 'jsonp',
+		  success:function(data) {
+			  $.each(data.respData,function(index,value) {
+				  contenido_farmacias += '<div class="localidad">'+value.localidad+'</div>';
+				  $.each(value.farmacias,function(index,val) {
+				  	  contenido_farmacias += '<div class="farmacias_detalle" data-transition="flip"><div class="farmacias_titulo">'+val.nombre+'</div><div class="mini_direccion">Dirección</div><div class="farmacias_direccion">'+val.direccion +'</div><div class="mini_telefono">Telefono</div><div class="farmacias_telefono">'+ val.telefono +'</div></div>';				  
+				  });
+				  contenido_farmacias += '';			  			  				 
+			  });		  
+			  $('#infofarmacias').append(contenido_farmacias);
+		  },
+		});
+	});
+	
+	
 	// Vaciamos el objeto
 	var storeObject = {
 		id : '',
@@ -185,6 +225,10 @@
 			else {
 				$('#menu-secciones').css('background-image','url(img/dropdown.png)');
 			}
+		});
+		
+		$('#exit').click(function(){
+    		navigator.app.exitApp();
 		});
 	});
 //]]>  
@@ -213,14 +257,14 @@
     </ul>
   </div>
   <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
-    <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
-      <ul>
-        <li><a href="#index" id="chat" data-transition="fade" data-icon="index">Inicia</a></li>
-        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
-        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
-        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
-        <li><a data-ajax="false" href="#index" id="coffee" data-icon="arrow-u">Subir</a></li>
-      </ul>
+
+    <div id="pie">
+    	<div class="item item1">Atrás</div>
+        <div class="item item2">Tiempo</div>
+        <a href="#farmacias"><div class="item item3">Farmacias</div></a>
+        <div class="item item4">Cine</div>
+        <div class="item item5">Subir</div>
+        <a href="#" id="exit"><div class="item item6">Salir</div></a>
     </div>
   </div>
 </div>
@@ -234,9 +278,9 @@
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
         <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
-        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
-        <li><a href="#clima" id="skull" data-icon="info">Clima</a></li>
-        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Tiempo</a></li>
+        <li><a href="#farmacias" id="farmacia" data-icon="farmacia">Farmacias</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li> 
         <li><a data-ajax="false" href="#ampliar" id="coffee" data-icon="arrow-u">Subir</a>
       </ul>
     </div>
@@ -256,37 +300,31 @@
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
         <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
-        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
-        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
-        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Tiempo</a></li>
+        <li><a href="#farmacias" id="farmacia" data-icon="farmacia">Farmacias</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li> 
         <li><a data-ajax="false" href="#ampliarsec" id="coffee" data-icon="arrow-u">Subir</a>
       </ul>
     </div>
   </div>
 </div>
-<div data-role="page" id="contacto">
-  <div data-theme="a" data-role="header">
-    <h3><img src="img/logo.png" alt="" width="140" height="38"></h3>
+<div data-role="page" id="farmacias">
+  <div data-role="header" data-theme="a" >
+    <h3> <img src="img/logo.png" width="140" height="38"> </h3>
     <a data-rel="back">Atrás</a> 
   </div>
-  <div data-role="content" id="contenidoseccion">
-    <div class="cuerpocontacto"> TodoJujuy.com<br>
-      Cte. de la Corte esq. Santa Fé<br>
-      San Salvador de Jujuy - Argentina<br>
-      +54 388 4223611 Int. 11<br>
-      +54 9 388 154365470<br>
-      <a href="mailto:diario@todojujuy.com">diario@todojujuy.com</a><br>
-
-    </div>
+  <div data-role="content">
+    <div class="farmacias_head">Farmacias de Turno</div>
+    <div id="infofarmacias"></div>   
   </div>
-  <div data-theme="a" data-role="footer" data-position="fixed">
+  <div data-role="footer" data-position="fixed">
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
         <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
-        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
-        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
-        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
-        <li><a data-ajax="false" href="#contacto" id="coffee" data-icon="arrow-u">Subir</a>
+        <li><a href="#clima" id="clima" data-icon="clima">Tiempo</a></li>
+        <li><a href="#farmacias" id="farmacia" data-icon="farmacia">Farmacias</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li> 
+        <li><a data-ajax="false" href="#cines" id="coffee" data-icon="arrow-u">Subir</a></li>
       </ul>
     </div>
   </div>
@@ -304,9 +342,9 @@
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
         <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
-        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
-        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
-        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Tiempo</a></li>
+        <li><a href="#farmacias" id="farmacia" data-icon="farmacia">Farmacias</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>  
         <li><a data-ajax="false" href="#cines" id="coffee" data-icon="arrow-u">Subir</a></li>
       </ul>
     </div>
@@ -325,9 +363,9 @@
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
         <li><a data-rel="back" id="chat" data-transition="fade" data-icon="forward">Atras</a></li>
-        <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
-        <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
-        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
+        <li><a href="#clima" id="clima" data-icon="clima">Tiempo</a></li>
+        <li><a href="#farmacias" id="farmacia" data-icon="farmacia">Farmacias</a></li>
+        <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li> 
         <li><a data-ajax="false" href="#clima" id="coffee" data-icon="arrow-u">Subir</a></li>
       </ul>
     </div>
