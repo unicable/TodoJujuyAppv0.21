@@ -64,7 +64,7 @@
 			  $.each(data.respData,function(index,value) {	
 				  //$('#secciones').css('width',ancho);		  
 				  $('#seccion').append('<li class="item" style="color:'+value.ns_color+'" id="ampliarseccion" data-id="'+value.id+'">'+value.valor+'</li>');
-				  $('#popupItem').append('<li><div class="cuadrado" style="background-color:'+value.ns_color+'"></div><div class="itemMenu"><a href="#" id="menuampliarseccion" data-id="'+value.id+'">'+value.valor+'</a></div></li>');
+				  $('#items-secciones').append('<li><a href="#" id="menuampliarseccion" data-id="'+value.id+'">'+value.valor+'</a></li>');
 			  });
 		  },
 		});
@@ -175,6 +175,18 @@
 		id : '',
 		secc : ''
 	}
+	
+	$(document).ready(function(){
+		$('#menu-secciones').click( function(){
+			$('#lista-secciones').toggle();
+			if ($('#lista-secciones').is(':visible')) {
+				$('#menu-secciones').css('background-image','url(img/dropup-hover.png)');
+			}
+			else {
+				$('#menu-secciones').css('background-image','url(img/dropdown.png)');
+			}
+		});
+	});
 //]]>  
 </script>
 <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
@@ -184,16 +196,14 @@
 <body>
 <div data-role="page" id="index">
   <div data-role="header" data-position="fixed" >
-    <div style="background-color:#1F1F1F; padding-top:6px; text-align:center; height:50px; width:100%;">
-        <a href="index.html"><img src="img/logo.png" width="140" height="38"></a>
-        <a href="#popupMenu" data-rel="popup" data-inline="true" data-transition="slidedown" data-theme="b" class="menuPopup">Secciones</a>
-        <div data-role="popup" id="popupMenu" data-theme="a">
-            <ul class="listaItems" data-inset="true" style="min-width:140px;">
-            	<div id="popupItem"></div>
-            </ul>
+    <div style="background-color:#1F1F1F; padding-top:0px; text-align:center; height:50px; width:100%;">
+        <a href="index.html"><img src="img/logo.png" width="140" height="38" style="margin-top:6px"></a>
+        <div id="menu-secciones"></div>
+        <div id="lista-secciones">
+        <ul id="items-secciones">
+        </ul>        
         </div>
-    </div>
-    
+    </div>    
   </div>
   <div data-role="content" id="noticias">
     <ul data-role="listview" id="loultimo" data-theme="a">
@@ -204,7 +214,7 @@
   <div data-role="footer" class="nav-glyphish-example" data-position="fixed">
     <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
       <ul>
-        <li><a href="#index" id="chat" data-transition="fade" data-icon="index">Inicial</a></li>
+        <li><a href="#index" id="chat" data-transition="fade" data-icon="index">Inicia</a></li>
         <li><a href="#contacto" id="email" data-icon="mail">Contacto</a></li>
         <li><a href="#clima" id="clima" data-icon="clima">Clima</a></li>
         <li><a href="#cines" id="cine" data-icon="cine">Cines</a></li>
