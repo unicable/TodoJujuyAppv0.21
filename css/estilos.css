@@ -289,42 +289,42 @@ a{
 #pie {
 	width:100%;
 	position:fixed;
-	height:50px;
+	height:70px;
 	bottom:0px;
-	background:#F2F2F2;
+	background:#363535;
 }
 #pie .item{
 	border:none;
-	width:13%;
+	width:15%;
 	margin:6px 0px;
-	height:38px;
+	height:56px;
 	float:left;
 	font-size:9px;
 	text-shadow:none;
-	color:#1F1F1F;
+	color:#FFF;
 	text-align:center;
 }
 #pie .item1{
 	background: url(../img/me_back.png) no-repeat center top;
-	padding-top:34px;
+	padding-top:44px;
 }
 #pie .item2{
 	background: url(../img/me_clima.png) no-repeat center top;
-	padding-top:34px;
+	padding-top:44px;
 }
 #pie .item3{
 	background: url(../img/me_farmacia.png) no-repeat center top;
-	padding-top:34px;
+	padding-top:44px;
 }
 #pie .item4{
 	background: url(../img/me_cine.png) no-repeat center top;
-	padding-top:34px;
+	padding-top:44px;
 }
 #pie .item5{
 	background: url(../img/me_subir.png) no-repeat center top;
-	padding-top:34px;
+	padding-top:44px;
 }
 #pie .item6{
 	background: url(../img/me_salir.png) no-repeat center top;
-	padding-top:34px;
+	padding-top:44px;
 }
